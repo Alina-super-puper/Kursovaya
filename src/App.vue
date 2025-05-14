@@ -2,7 +2,7 @@
 <script setup>
 import { RouterView, RouterLink } from 'vue-router'
 import Navbar from './components/Header.vue'
-import pod from './components/podval.vue'
+import Ood from './components/podval.vue'
 
 </script>
 
@@ -10,7 +10,7 @@ import pod from './components/podval.vue'
   <div id="app">
     <Navbar />
     <RouterView />
-    <pod/>
+    <Ood/>
    
   </div>
 </template>
