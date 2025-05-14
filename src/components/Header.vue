@@ -56,7 +56,7 @@ function toggleMenu() {
   <nav class="navbar">
     
     <div class="sss">
-      <RouterLink to="{ name: 'home' }">
+      <RouterLink :to="{ name: 'home' }">
         <img class="log default" src="../img/baddy.png" alt="Логотип" />
       </RouterLink>
     </div>
@@ -66,10 +66,10 @@ function toggleMenu() {
 
     
     <ul class="links center-links" :class="{ open: menuOpen }">
-      <li class="underline-one"><RouterLink to="{ name: 'home' }">Главная</RouterLink></li>
-      <li class="underline-one"><RouterLink to="{ name: 'about' }">О нас</RouterLink></li>
-      <li class="underline-one"><RouterLink to="{ name: 'products' }">Товары</RouterLink></li>
-      <li class="underline-one"><RouterLink to="{ name: 'gallery' }">Контакты</RouterLink></li>
+      <li class="underline-one"><RouterLink :to="{ name: 'home' }">Главная</RouterLink></li>
+      <li class="underline-one"><RouterLink :to="{ name: 'about' }">О нас</RouterLink></li>
+      <li class="underline-one"><RouterLink :to="{ name: 'products' }">Товары</RouterLink></li>
+      <li class="underline-one"><RouterLink :to="{ name: 'gallery' }">Контакты</RouterLink></li>
       <RouterLink :to="{ name: 'home', hash: '#ask-section' }">FAQ</RouterLink>
     </ul>
 
@@ -77,12 +77,12 @@ function toggleMenu() {
     <ul class="links right-links" :class="{ open: menuOpen }">
   
   <li>
-    <RouterLink to="{ name: 'karzine' }">
+    <RouterLink :to="{ name: 'karzine' }">
       <img class="log-lav lav" src="../img/kar23.png" alt="Корзина" />
     </RouterLink>
   </li>
   <li>
-    <RouterLink to="{ name: 'love' }">
+    <RouterLink :to="{ name: 'love' }">
       <img class="log-kar kar " src="../img/like.png" alt="Корзина" />
     </RouterLink>
   </li>
