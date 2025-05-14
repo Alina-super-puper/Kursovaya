@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '@/pages/Home.vue'
+import Home from './pages/Home.vue'
 
-import LoginPage from '@/pages/Login.vue'
-import UserPage from '@/pages/UserAccount.vue'
-import ProductsPage from '@/pages/Product.vue'
-import AboutPage from '@/pages/About.vue'
-import GalleryPage from '@/pages/Gallery.vue'
-import Cabinet from '@/pages/UserAccount.vue'
-import Karzine from '@/pages/ProCard.vue'
-import Ask from '@/pages/ASK.vue'
-import Detali from '@/pages/Detalitov.vue'
-import Loves from '@/pages/Love.vue'
+import LoginPage from './pages/Login.vue'
+import UserPage from './pages/UserAccount.vue'
+import ProductsPage from './pages/Product.vue'
+import AboutPage from './pages/About.vue'
+import GalleryPage from './pages/Gallery.vue'
+import Cabinet from './pages/UserAccount.vue'
+import Karzine from './pages/ProCard.vue'
+import Ask from './pages/ASK.vue'
+import Detali from './pages/Detalitov.vue'
+import Loves from './pages/Love.vue'
 
 const routes = [
   { path: '/', component: Home, name: 'home' },
