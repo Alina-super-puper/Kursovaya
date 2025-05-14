@@ -1,4 +1,4 @@
-// src/data/products.js
+// ААААААААААААААААА
 export const kart = [
     {
         id: 1,

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+// ААА
 import Home from './pages/Home.vue'
 
 import LoginPage from './pages/Login.vue'
