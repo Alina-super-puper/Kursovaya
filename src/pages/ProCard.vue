@@ -20,7 +20,7 @@ onMounted(() => {
   isAuthenticated.value = !!user?.isAuthenticated
 
   if (user?.name) {
-    initCart(user.name) // ← вот это важно
+    initCart(user.name) 
   }
 })
 watch(cartItems, (newCart) => {
@@ -29,20 +29,20 @@ watch(cartItems, (newCart) => {
     localStorage.setItem(`cartItems_${user.name}`, JSON.stringify(newCart))
   }
 }, { deep: true })
-// Сохраняем корзину при изменении
+
 const modal = reactive({
   net:null
 })
 function handleCheckout() {
   if (totalItems.value === 0) {
-    modal.net = true // ← Показываем модалку
+    modal.net = true 
     return
   }
 
   if (!isAuthenticated.value) {
     window.dispatchEvent(new Event('open-auth'))
   } else {
-    router.push('/login') // Это может быть, например, /checkout
+    router.push('/login') 
   }
 }
 const totalItemsLabel = computed(() => {
@@ -68,7 +68,9 @@ const totalItemsLabel = computed(() => {
       <div v-for="item in cartItems" :key="item.id" class="cart-item">
         
         
-        <RouterLink :to="`/detali/${item.id}`"><img class="foto" :src="item.image" alt="" /></RouterLink>
+        <RouterLink :to="{ name: 'detali', params: { id: item.id } }">
+  <img class="foto" :src="item.image" alt="" />
+</RouterLink>
         <div class="info">
           <h3>{{ item.nasvanie }}</h3>
           <p>{{ item.opisanie }}</p>

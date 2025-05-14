@@ -149,9 +149,9 @@ function clearFilters() {
     />
   </button>
 </div>
-          <RouterLink :to="`/detali/${p.id}`">
-            <img class="we" :src="p.image" alt="" />
-          </RouterLink>
+         <RouterLink :to="{ name: 'detali', params: { id: p.id } }">
+  <img class="we" :src="p.image" alt="" />
+</RouterLink>
           <h3>{{ p.nasvanie }}</h3>
           <p>{{ p.opisanie }}</p>
           <p class="underline-one">{{ p.rubli }} ₽</p>
@@ -178,7 +178,7 @@ function clearFilters() {
   color: inherit;
   background: none;
   cursor: pointer;
-  /* размер основной кнопки */
+ 
   padding: 8px 12px; 
   display: inline-block;
   margin: 8px auto 0 auto;
@@ -265,7 +265,7 @@ function clearFilters() {
 .product-card h3,
 .product-card p,
 .product-card button {
-  margin: 4px 0; /* Уменьшаем вертикальные отступы */
+  margin: 4px 0; 
 }
 
 
@@ -289,10 +289,10 @@ function clearFilters() {
   font-family: H;
 }
 .filters-card {
-  background-image: url('../img/der6.jpg'); /* путь к изображению */
-  background-size: cover; /* растягивает изображение */
-  background-position: center; /* центрирует изображение */
-  /* background: #f9f9f9; */
+  background-image: url('../img/der6.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  
   border-radius: 12px;
   padding: 1rem 1.5rem;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0);
@@ -300,7 +300,7 @@ function clearFilters() {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  min-width: 800px; /* Можно меньше/больше по желанию */
+  min-width: 800px; 
 }
 select {
   padding: 0.5rem 1rem;
@@ -356,7 +356,7 @@ p{
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* центрирует всё внутри */
+  align-items: center; 
 
 }
 .filters {
@@ -373,12 +373,12 @@ p{
 }
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 3 колонки */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 1rem;
-  justify-content: center; /* центрирует сетку */
-  padding: 0 2rem; /* отступы по бокам */
-  max-width: 1200px; /* ограничим ширину сетки */
-  margin: 0 auto; /* центрируем всю сетку */
+  justify-content: center; 
+  padding: 0 2rem; 
+  max-width: 1200px; 
+  margin: 0 auto; 
 }
 .product-card {
   padding: 1rem;
@@ -391,7 +391,7 @@ p{
   max-width: 280px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* распределяет контент по вертикали */
+  justify-content: space-between; 
   
 }
 .product-card img {
@@ -423,7 +423,7 @@ p{
 
 .product-card {
   position: relative;
-  /* остальное уже есть */
+  
 }
 .clear-button {
   background: linear-gradient(135deg, #2c5243, #3fae77);

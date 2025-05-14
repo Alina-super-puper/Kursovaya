@@ -38,7 +38,7 @@ function ich() {
   border-radius: 8px;
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0), rgba(47, 91, 53, 0.866)), 
-    url('../img/der6.jpg'); /* полупрозрачный тёмный слой + текстура */
+    url('../img/der6.jpg'); 
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply;
@@ -50,7 +50,7 @@ function ich() {
 .underline-one:hover {
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), 
-    url('../img/der6.jpg'); /* уменьшаем затемнение при наведении */
+    url('../img/der6.jpg'); 
   transform: scale(1.03);
 }
      

@@ -1,4 +1,4 @@
-
+<!-- ПЕРЕДЕЛАНАЯ КОРЗИНА ПОМЕНЯТЬ -->
 <script setup>
 import { useLove } from '../composables/useLove'
 import { useCart } from '../composables/useCart'
@@ -43,9 +43,9 @@ function handleAddAllToCart() {
         <img style="width: 200px;" src="../img/liv.png" alt="Кот">
       </div>
     <div v-for="item in favorites" :key="item.id" class="cart-item">
-  <RouterLink :to="`/detali/${item.id}`">
-    <img class="foto" :src="item.image" alt="" />
-  </RouterLink>
+  <RouterLink :to="{ name: 'detali', params: { id: item.id } }">
+  <img class="foto" :src="item.image" alt="" />
+</RouterLink>
   <div class="info">
     <h3>{{ item.nasvanie }}</h3>
     <p>{{ item.opisanie }}</p>

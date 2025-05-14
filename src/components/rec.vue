@@ -5,7 +5,8 @@ import { useCart } from '../composables/useCart'
 import { useLove } from '../composables/useLove'
 import heartEmpty from '../img/hert1.png'
 import heartFilled from '../img/hert2.png'
-
+import { RouterLink } from 'vue-router'
+// ИЗ НОВИНОК НАДО ПОМЕНЯТЬ ФУНКЦИЮ!!!
 const { addToCart } = useCart()
 const { favorites, addToFavorites, removeFromFavorites, initFavorites } = useLove()
 
@@ -65,7 +66,7 @@ function toggleFavorite(p) {
             />
           </button>
         </div>
-        <RouterLink :to="`/detali/${p.id}`">
+        <RouterLink :to="{ name: 'detali', params: { id: p.id } }">
           <img class="we" :src="p.image" alt="" />
         </RouterLink>
         <h3>{{ p.nasvanie }}</h3>
@@ -87,7 +88,7 @@ function toggleFavorite(p) {
   src: url('/styles/tu.otf') format('opentype');
 }
 
-/* КНОПКИ */
+
 .btn {
   font-family: H;
   border: none;
@@ -180,7 +181,7 @@ function toggleFavorite(p) {
   content: "\f1d8";
 }
 
-/* Обёртка и карусель */
+
 .carousel-wrapper {
   display: flex;
   align-items: center;
@@ -196,7 +197,7 @@ function toggleFavorite(p) {
   gap: 1rem;
 }
 
-/* Карточка товара */
+
 .product-card {
   position: relative;
   padding: 1rem;
@@ -217,7 +218,7 @@ function toggleFavorite(p) {
   object-fit: cover;
 }
 
-/* Кнопка избранного */
+
 .top-left-buttons {
   position: absolute;
   top: 8px;
@@ -242,7 +243,7 @@ function toggleFavorite(p) {
   transform: scale(1.1);
 }
 
-/* Стиль текста */
+
 h3, p {
   margin: 4px 0;
   font-family: 'Arial', sans-serif;
@@ -257,7 +258,7 @@ h3, p {
   color: #2c5140;
 }
 
-/* Адаптация под экраны */
+
 @media (max-width: 1200px) {
   .carousel {
     grid-template-columns: repeat(3, 1fr);

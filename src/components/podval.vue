@@ -2,12 +2,11 @@
 </script>
 <template>
   <div class="main-container">
-    <!-- Основной контент страницы -->
+   
     <div class="content">
-      <!-- Все твои текущие компоненты тут (как твою страницу пользователя и заказы) -->
+    
     </div>
 
-    <!-- Подвал -->
     <footer class="site-footer">
       <div class="footer-content">
         <div class="footer-info">
@@ -120,7 +119,7 @@
   border-top: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Мобильная адаптация */
+
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;

@@ -65,7 +65,7 @@ const { addToCart } = useCart()
   color: inherit;
   background: none;
   cursor: pointer;
-  /* размер основной кнопки */
+ 
   padding: 8px 12px; 
   display: inline-block;
   margin: 8px auto 0 auto;

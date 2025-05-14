@@ -1,36 +1,44 @@
 <!-- КАРТОЧКИ НОВИНКИ НА ГЛАВНОЙ !!!-->
 <script setup>
 import { ref, computed, onMounted, reactive } from 'vue'
+// МАССИВ С ТОВАРАМИ KART НЕ ЗАБЫТЬ ЭКСПОРТИРОВАТЬ ЕЩЕ
 import { kart } from '../composables/useProduct'
+// ДЛЯ КОРЗИНЫ И ИЗБРАННОГО 
 import { useCart } from '../composables/useCart'
 import { useLove } from '../composables/useLove'
+// ДЛЯ СЕРДЕШЕК
 import heartEmpty from '../img/hert1.png'
 import heartFilled from '../img/hert2.png'
 
 const { addToCart } = useCart()
 const { favorites, addToFavorites, removeFromFavorites, initFavorites } = useLove()
-
+// СДЕЛАТЬ СОХРАНЕНИЕ ТЕКУЩ АВТОР ПОЛЬЗОВАТЕЛЯ ЕЩЕ В JS
 onMounted(() => {
   const user = JSON.parse(localStorage.getItem('user'))
   initFavorites(user?.name || 'guest')
 })
 
+
+// ДЛЯ КАРУСЕЛИ ВСЕ НИЖЕ
+
+// ТОКА ТЕ ТОВАРЫ У КОТОРЫХ ПРАДА
 const nowinki = computed(() => kart.filter(p => p.nowinki))
+// УПРАВ СЛАЙДАМИ
 const currentIndex = ref(0)
 const cardsPerPage = 4
 
-
-const visibleCards = computed(() => {
+// ТОКА ТЕ ШО НА ЭКРАНЕ
+const slide = computed(() => {
   return nowinki.value.slice(currentIndex.value, currentIndex.value + cardsPerPage)
 })
-
-function next() {
+// ТУДА
+function nazad() {
   if (currentIndex.value + cardsPerPage < nowinki.value.length) {
     currentIndex.value += cardsPerPage
   }
 }
-
-function prev() {
+// СЮДА
+function obrat() {
   if (currentIndex.value - cardsPerPage >= 0) {
     currentIndex.value -= cardsPerPage
   }
@@ -51,11 +59,11 @@ function toggleFavorite(p) {
 
 <template>
   <div class="carousel-wrapper">
-    <button class="arrow left" @click="prev">‹</button>
+    <button class="arrow left" @click="obrat">‹</button>
     <div class="carousel">
       <div
         class="product-card"
-        v-for="p in visibleCards"
+        v-for="p in slide"
         :key="p.id"
       >
         <div class="top-left-buttons">
@@ -68,9 +76,9 @@ function toggleFavorite(p) {
             />
           </button>
         </div>
-        <RouterLink :to="`/detali/${p.id}`">
-          <img class="we" :src="p.image" alt="" />
-        </RouterLink>
+        <RouterLink :to="{ name: 'detali', params: { id: p.id } }">
+  <img class="we" :src="p.image" alt="" />
+</RouterLink>
         <h3>{{ p.nasvanie }}</h3>
         <p>{{ p.opisanie }}</p>
         <p class="underline-one">{{ p.rubli }} ₽</p>
@@ -80,7 +88,7 @@ function toggleFavorite(p) {
         </button>
       </div>
     </div>
-    <button class="arrow right" @click="next">›</button>
+    <button class="arrow right" @click="nazad">›</button>
   </div>
 </template>
 

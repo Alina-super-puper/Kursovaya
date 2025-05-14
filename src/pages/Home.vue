@@ -63,8 +63,8 @@ import reco from '../components/rec.vue'
   margin-top: 1rem;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: calc(100% - 100px); /* немного уже, чем экран */
-  max-width: 1200px; /* ограничиваем максимальную ширину */
+  width: calc(100% - 100px); 
+  max-width: 1200px; 
 }
 @font-face {
     font-family: H;

@@ -43,17 +43,11 @@ function getPrice(id) {
 
 function logout() {
   const user = JSON.parse(localStorage.getItem('user'))
-
-  // Удаляем временную корзину (если вдруг есть)
   localStorage.removeItem('cartItems')
-
-  // Удаляем текущего пользователя
   localStorage.removeItem('user')
-
-  // Перезагружаем страницу, чтобы сбросить кеш
   router.push('/').then(() => location.reload())
 }
-
+// ПЕРЕДЕЛАТЬ НАДО ЧТОБ ТЕКУЩНГО УБИРАЛ
 onMounted(() => {
   const stored = JSON.parse(localStorage.getItem('user'))
   if (!stored?.isAuthenticated) return router.push('/')
@@ -62,7 +56,7 @@ onMounted(() => {
   const allOrders = JSON.parse(localStorage.getItem('orders') || '[]')
   orders.value = allOrders.filter(o => o.user === user.value.name)
 
-  loadPetProfile() // загрузить анкету
+  loadPetProfile() 
 })
 </script>
 
@@ -112,7 +106,9 @@ onMounted(() => {
           <div v-if="order.items && order.items.length">
             <div v-for="item in order.items" :key="item.id" class="item-card">
               
-              <RouterLink :to="`/detali/${item.id}`"><img :src="item.image" alt="товар" class="thumb" /></RouterLink>
+              <RouterLink :to="{ name: 'detali', params: { id: item.id } }">
+  <img :src="item.image" alt="товар" class="thumb" />
+</RouterLink>
               <div class="info">
                 <p><strong>{{ item.nasvanie }}</strong></p>
                 <p>{{ item.rubli }} ₽</p>
@@ -184,7 +180,7 @@ onMounted(() => {
   color: inherit;
   background: none;
   cursor: pointer;
-  /* размер основной кнопки */
+
   padding: 8px 12px; 
   display: inline-block;
   margin: 8px auto 0 auto;
@@ -209,7 +205,7 @@ onMounted(() => {
   transition: all 0.3s;
 }
 
-/* Pseudo elements for icons */
+
 .btn:before {
   font-family: 'FontAwesome';
   
@@ -223,7 +219,7 @@ onMounted(() => {
 }
 
 
-/* Icon separator */
+
 .btn-sep {
   padding: 10px 20px 10px 50px;
 }
@@ -236,7 +232,7 @@ onMounted(() => {
 
 
 
-/* Button 2 */
+
 .btn-2 {
   font-family: H;
   background: #2ecc71;
@@ -263,7 +259,7 @@ onMounted(() => {
 }
 
 
-/* Icons */
+
 
 .icon-cart:before {
   content: "\f07a";
@@ -284,7 +280,7 @@ onMounted(() => {
 .product-card h3,
 .product-card p,
 .product-card button {
-  margin: 4px 0; /* Уменьшаем вертикальные отступы */
+  margin: 4px 0; 
 }
 
 .cabinet {

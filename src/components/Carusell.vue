@@ -25,7 +25,7 @@
   onMounted(() => {
     interval = setInterval(() => {
       currentSlide.value = (currentSlide.value + 1) % slides.length
-    }, 5000) // Меняется каждые 5 секунд
+    }, 5000) 
   })
   
   onUnmounted(() => {
@@ -39,7 +39,7 @@
   top: 0px;
   left: 0;
   width: 100%;
-  height: 500px; /* Размер для десктопов */
+  height: 500px; 
   overflow: hidden;
   margin: 0 auto;
 }
@@ -59,14 +59,14 @@
   z-index: 1;
 }
 
-/* Скрыть карусель на мобильных устройствах */
+
 @media (max-width: 768px) {
   .carousel {
-    display: none; /* Скрываем карусель на экранах до 768px */
+    display: none; 
   }
 }
 
-/* Адаптация других элементов */
+
 .carousel-bg {
   background: white;
   padding: 2rem;
@@ -74,7 +74,7 @@
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 100%; /* Убираем ограничения ширины на мобильных устройствах */
+  max-width: 100%; 
 }
 
 .reco-header {
@@ -83,22 +83,22 @@
   gap: 1rem;
   margin-left: 20px;
   margin-top: 20px;
-  flex-direction: column; /* Колонка на маленьких экранах */
+  flex-direction: column; 
 }
 
 .reco-header h2 {
   font-family: H;
-  font-size: 24px; /* Меньший размер шрифта */
+  font-size: 24px; 
   color: darkgreen;
   margin: 0;
 }
 
 .cat-img {
-  width: 40px; /* Меньше изображение на мобильных устройствах */
+  width: 40px; 
   height: auto;
 }
 
-/* Адаптация с использованием сетки для товаров */
+
 .article-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -121,23 +121,23 @@ h2 {
   padding: 2rem;
 }
 
-/* Стили для мобильных экранов */
+
 @media (max-width: 480px) {
   h2 {
-    font-size: 24px; /* Меньше шрифт для мобильных */
+    font-size: 24px; 
     margin-left: 20px;
   }
 
   .carousel-section {
-    padding: 1rem; /* Меньше отступов */
+    padding: 1rem; 
   }
 
   .cat-img {
-    width: 30px; /* Еще меньше изображение на экранах телефонов */
+    width: 30px;
   }
 
   .article-grid {
-    grid-template-columns: 1fr; /* Одна колонка для маленьких экранов */
+    grid-template-columns: 1fr; 
   }
 }
 </style>

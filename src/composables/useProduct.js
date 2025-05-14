@@ -12,7 +12,7 @@ export const kart = [
         ves: '1.5 кг',
         podrob: '',
         opisanie: 'УТКА И КЛЮКВА 1.5 кг. Сухой корм премиум-класса SIRIUS для стерилизованных кошек, 1.5 кг',
-        image: 'https://raw.githubusercontent.com/Alina-super-puper/Kursovaya/refs/heads/main/public/img2/sir1.png',
+        image: 'https://raw.githubusercontent.com/Alina-super-puper/Kursovaya/main/public/img2/sir1.png',
         sostav : 'Дегидрированное мясо (курица 12%, индейка 10%), мясо утки 8%, кукуруза, пшеница, жир куриный, растительные волокна (источник клетчатки) гидролизованные мясные белки, кукурузный глютен, дрожжи пивные, жир лососевый 1%.',
         vkus: ''
     },

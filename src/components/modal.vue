@@ -12,7 +12,7 @@ const phone = ref('')
 const error = ref('')
 
 // ФУНШИ ИЗ УЗЕРСУЗЕРА
-const { addUser, findUserByName, findUserByPhone } = useUsers() // Поиск пользователя по телефону
+const { addUser, findUserByName, findUserByPhone } = useUsers() 
 
 // ПРОВЕРЯЕМС ПАРОЛЬ
 function validatePassword(pass) {
@@ -203,9 +203,8 @@ function submit() {
   border: none;
   border-radius: 8px;
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0), rgba(47, 91, 53, 0.866)),
-    url('../img/der6.jpg');
-  /* полупрозрачный тёмный слой + текстура */
+  linear-gradient(rgba(0, 0, 0, 0), rgba(47, 91, 53, 0.866)),
+  url('../img/der6.jpg');
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply;
@@ -216,9 +215,8 @@ function submit() {
 
 .underline-one:hover {
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url('../img/der6.jpg');
-  /* уменьшаем затемнение при наведении */
+  linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+  url('../img/der6.jpg');
   transform: scale(1.03);
 }
 
@@ -241,7 +239,7 @@ function submit() {
   display: flex;
   justify-content: center;
   gap: 20px;
-  /* Расстояние между кнопками */
+
   margin-top: 20px;
 }
 

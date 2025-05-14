@@ -23,7 +23,7 @@ const routes = [
   { path: '/gallery', component: GalleryPage, name: 'gallery' },
   { path: '/karzine', component: Karzine, name: 'karzine' },
   { path: '/ask', component: Ask, name: 'ask' },
-  { path: '/cabinet', component: Cabinet, name: 'cabiney' },
+  { path: '/cabinet', component: Cabinet, name: 'cabinet' },
   { path: '/detali/:id', component: Detali, name: 'detali' },
   { path: '/love', component: Loves, name: 'love' },
  

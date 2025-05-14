@@ -1,3 +1,113 @@
+
+<script setup>
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+
+const name = ref('')
+const surname = ref('')
+const city = ref('')
+const street = ref('')
+const house = ref('')
+const zip = ref('')
+const deliveryType = ref('pickup')
+const paymentMethod = ref('')
+const selectedAddress = ref(null)
+const pickupPoints = [
+  'г. Москва, ул. Ленина, д. 10',
+  'г. Санкт-Петербург, Невский проспект, д. 42',
+  'г. Казань, ул. Баумана, д. 5',
+  'г. Новосибирск, ул. Красный проспект, д. 120'
+]
+
+const errors = ref({
+  name: '',
+  surname: '',
+  zip: ''
+})
+
+const router = useRouter()
+
+const activeTab = ref('pickup') 
+
+
+// РЕГУЛЯРОЧКИ
+
+
+function isValidRussianName(value) {
+  const trimmed = value.trim()
+
+  if (trimmed.length < 2) return false
+
+  const onlyRussianLetters = /^[А-Яа-яЁё]+$/.test(trimmed)
+  if (!onlyRussianLetters) return false
+
+  const firstLetter = trimmed.charAt(0)
+  if (firstLetter !== firstLetter.toUpperCase()) return false
+
+  const rest = trimmed.slice(1)
+  if (rest !== rest.toLowerCase()) return false
+
+  return true
+}
+
+
+function validateForm() {
+  errors.value.name = isValidRussianName(name.value)
+    ? ''
+    : 'Имя должно начинатся с заглавной буквы, содержать только русские буквы.'
+
+  errors.value.surname = isValidRussianName(surname.value)
+    ? ''
+    : 'Фамилия должна начинатся с заглавной буквы, содержать только русские буквы.'
+
+  const zipIsValid = /^\d{6}$/.test(zip.value)
+  errors.value.zip =
+    deliveryType.value === 'delivery' && !zipIsValid
+      ? 'Индекс должен содержать 6 цифр'
+      : ''
+
+  return !errors.value.name && !errors.value.surname && !errors.value.zip
+}
+
+
+function submitOrder() {
+  if (!validateForm()) return
+
+  const user = JSON.parse(localStorage.getItem('user')) || { name: 'Гость' }
+  const cartKey = `cartItems_${user.name}`
+  const cartItems = JSON.parse(localStorage.getItem(cartKey) || '[]')
+
+  const order = {
+    id: Date.now(),
+    user: user.name,
+    name: name.value,
+    surname: surname.value,
+    deliveryType: activeTab.value,
+    address:
+      activeTab.value === 'delivery'
+        ? {
+            city: city.value,
+            street: street.value,
+            house: house.value,
+            zip: zip.value
+          }
+        : selectedAddress.value || 'Самовывоз',
+    paymentMethod: paymentMethod.value,
+    status: 'В ожидании',
+    items: cartItems 
+  }
+
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]')
+  orders.push(order)
+  localStorage.setItem('orders', JSON.stringify(orders))
+
+ 
+  localStorage.removeItem(cartKey)
+
+  router.push('/cabinet')
+}
+
+</script>
 <template>
   <div class="checkout">
     <h2 class="checkout-title">Оформление заказа</h2>
@@ -10,13 +120,13 @@
       <span v-if="errors.surname" class="error">{{ errors.surname }}</span>
     </div>
 
-    <!-- Вкладки "Доставка" и "Самовывоз" -->
+ 
     <div class="tabs">
       <button class="underline-one" @click="activeTab = 'pickup'">Самовывоз</button>
       <button class="underline-one" @click="activeTab = 'delivery'">Доставка</button>
     </div>
 
-    <!-- Самовывоз -->
+    
     <div v-show="activeTab === 'pickup'" class="pickup-section">
       <label for="pickup-select">Выберите пункт самовывоза:</label>
       <select id="pickup-select" v-model="selectedAddress" required>
@@ -26,7 +136,7 @@
       <p v-if="selectedAddress">Вы выбрали: {{ selectedAddress }}</p>
     </div>
 
-    <!-- Доставка -->
+   
     <div v-show="activeTab === 'delivery'" class="delivery-section">
       <div class="form-group">
         <input v-model="city" placeholder="Город" required />
@@ -57,118 +167,7 @@
   </div>
 </template>
 
-<script setup>
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 
-const name = ref('')
-const surname = ref('')
-const city = ref('')
-const street = ref('')
-const house = ref('')
-const zip = ref('')
-const deliveryType = ref('pickup')
-const paymentMethod = ref('')
-const selectedAddress = ref(null)
-const pickupPoints = [
-  'г. Москва, ул. Ленина, д. 10',
-  'г. Санкт-Петербург, Невский проспект, д. 42',
-  'г. Казань, ул. Баумана, д. 5',
-  'г. Новосибирск, ул. Красный проспект, д. 120'
-]
-
-const errors = ref({
-  name: '',
-  surname: '',
-  zip: ''
-})
-
-const router = useRouter()
-
-const activeTab = ref('pickup') // Переменная для активной вкладки
-
-// -----------------------------
-// Проверка имени на русском
-// -----------------------------
-function isValidRussianName(value) {
-  const trimmed = value.trim()
-
-  if (trimmed.length < 2) return false
-
-  const onlyRussianLetters = /^[А-Яа-яЁё]+$/.test(trimmed)
-  if (!onlyRussianLetters) return false
-
-  const firstLetter = trimmed.charAt(0)
-  if (firstLetter !== firstLetter.toUpperCase()) return false
-
-  const rest = trimmed.slice(1)
-  if (rest !== rest.toLowerCase()) return false
-
-  return true
-}
-
-// -----------------------------
-// Проверка и установка ошибок
-// -----------------------------
-function validateForm() {
-  errors.value.name = isValidRussianName(name.value)
-    ? ''
-    : 'Имя должно начинатся с заглавной буквы, содержать только русские буквы.'
-
-  errors.value.surname = isValidRussianName(surname.value)
-    ? ''
-    : 'Фамилия должна начинатся с заглавной буквы, содержать только русские буквы.'
-
-  const zipIsValid = /^\d{6}$/.test(zip.value)
-  errors.value.zip =
-    deliveryType.value === 'delivery' && !zipIsValid
-      ? 'Индекс должен содержать 6 цифр'
-      : ''
-
-  return !errors.value.name && !errors.value.surname && !errors.value.zip
-}
-
-// -----------------------------
-// Отправка заказа
-// -----------------------------
-function submitOrder() {
-  if (!validateForm()) return
-
-  const user = JSON.parse(localStorage.getItem('user')) || { name: 'Гость' }
-  const cartKey = `cartItems_${user.name}`
-  const cartItems = JSON.parse(localStorage.getItem(cartKey) || '[]')
-
-  const order = {
-    id: Date.now(),
-    user: user.name,
-    name: name.value,
-    surname: surname.value,
-    deliveryType: activeTab.value,
-    address:
-      activeTab.value === 'delivery'
-        ? {
-            city: city.value,
-            street: street.value,
-            house: house.value,
-            zip: zip.value
-          }
-        : selectedAddress.value || 'Самовывоз',
-    paymentMethod: paymentMethod.value,
-    status: 'В ожидании',
-    items: cartItems // ← добавляем товары!
-  }
-
-  const orders = JSON.parse(localStorage.getItem('orders') || '[]')
-  orders.push(order)
-  localStorage.setItem('orders', JSON.stringify(orders))
-
-  // очищаем корзину пользователя
-  localStorage.removeItem(cartKey)
-
-  router.push('/cabinet')
-}
-
-</script>
 <style scoped>
 .underline-one {
   margin: 5px;
@@ -236,7 +235,7 @@ function submitOrder() {
   color: #2c5140;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрируем контент по горизонтали */
+  align-items: center;
 }
 
 .checkout-title {
@@ -249,7 +248,7 @@ function submitOrder() {
 
 .form-group {
   width: 100%;
-  max-width: 400px; /* Ограничиваем максимальную ширину для ввода */
+  max-width: 400px; 
   padding-right: 30px;
   margin-bottom: 1.2rem;
   display: flex;
@@ -275,7 +274,7 @@ select.invalid {
 
 .f {
   width: 100%;
-  max-width: 400px; /* Ограничиваем максимальную ширину кнопки */
+  max-width: 400px;
   padding: 0.9rem;
   font-size: 1.1rem;
   font-family: H;
@@ -303,6 +302,6 @@ select.invalid {
   border-radius: 8px;
 }
 
-/* Радио кнопки */
+
 
 </style>

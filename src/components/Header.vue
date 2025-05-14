@@ -3,48 +3,50 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Modal from './modal.vue'
 
-const isAuthenticated = ref(false) // Для отслеживания статуса входа
-const showAuth = ref(false) // Для показа модалки авторизации
+const isAuthenticated = ref(false) // ВОШЕЛ ИЛЬ НЕТ
+const showAuth = ref(false) // ДЛЯ МОДАЛКИ АВТОРИЗАЦИИ
 const menuOpen = ref(false)
 const router = useRouter()
 
-// Синхронизация с localStorage при монтировании компонента
+// СДЕЛАТЬ ТАК ЧТОБЫ ПОЛЬЗОВАТЕЛЬ АВТОМАТИЧЕСКИ АВТОРИЗОВАЛСЯ НЕ ЗАБЫТЬ 
 onMounted(() => {
   const storedUser = JSON.parse(localStorage.getItem('user'))
   if (storedUser?.isAuthenticated) {
     isAuthenticated.value = true
   }
+  // ЭТО ДЛЯ КОРЗИНЫ ЕСЛИ ТАМ НАЖМУТ ФОРМИТЬ ЗАКАЗ ВЫЛЕЗЕТ ЧУДОВИЩЕ
   window.addEventListener('open-auth', () => {
     showAuth.value = true
   })
 })
 
-// Следим за изменением в localStorage и обновляем состояние
+// СДЕЛИТ ЗА УЗЕРОМ ЧТОБ ЕСЛИ ЧЕ СЮДА ЕГО КИНУТЬ
 window.addEventListener('storage', () => {
   const updatedUser = JSON.parse(localStorage.getItem('user'))
   isAuthenticated.value = !!updatedUser?.isAuthenticated
 
-  // Перенаправляем на главную, если пользователь разлогинился
-  if (!updatedUser?.isAuthenticated && router.currentRoute.value.path === '/cabinet') {
+  
+  if (!updatedUser?.isAuthenticated && router.currentRoute.value.path === '/cabinet') 
+  {
     router.push('/')
   }
 })
 
-// Функция для отображения модалки с авторизацией
+// МОДАЛКА ВЫТЛЕТАЕТ
 function handleSuccess() {
   isAuthenticated.value = true
   showAuth.value = false
-  router.push('/cabinet') // Переходим в личный кабинет
+  router.push('/cabinet') 
 }
 
-// Логика выхода из аккаунта
+// ВЫХОД
 function logout() {
-  localStorage.removeItem('user') // Удаляем данные о пользователе из localStorage
-  isAuthenticated.value = false // Обновляем состояние
-  router.push('/') // Перенаправляем на главную
+  localStorage.removeItem('user') 
+  isAuthenticated.value = false 
+  router.push('/') 
 }
 
-// Переключение состояния меню на мобильных устройствах
+
 function toggleMenu() {
   menuOpen.value = !menuOpen.value
 }
@@ -52,45 +54,45 @@ function toggleMenu() {
 
 <template>
   <nav class="navbar">
-    <!-- Логотип -->
+    
     <div class="sss">
-      <RouterLink to="/">
+      <RouterLink to="{ name: 'home' }">
         <img class="log default" src="../img/baddy.png" alt="Логотип" />
       </RouterLink>
     </div>
 
-    <!-- Кнопка-бургер -->
+   
     <button class="burger" @click="toggleMenu">☰</button>
 
-    <!-- Ссылки по центру -->
+    
     <ul class="links center-links" :class="{ open: menuOpen }">
-      <li class="underline-one"><RouterLink to="/">Главная</RouterLink></li>
-      <li class="underline-one"><RouterLink to="/about">О нас</RouterLink></li>
-      <li class="underline-one"><RouterLink to="/products">Товары</RouterLink></li>
-      <li class="underline-one"><RouterLink to="/gallery">Контакты</RouterLink></li>
-      <RouterLink :to="{ path: '/', hash: '#ask-section' }">FAQ</RouterLink>
+      <li class="underline-one"><RouterLink to="{ name: 'home' }">Главная</RouterLink></li>
+      <li class="underline-one"><RouterLink to="{ name: 'about' }">О нас</RouterLink></li>
+      <li class="underline-one"><RouterLink to="{ name: 'products' }">Товары</RouterLink></li>
+      <li class="underline-one"><RouterLink to="{ name: 'gallery' }">Контакты</RouterLink></li>
+      <RouterLink :to="{ name: 'home', hash: '#ask-section' }">FAQ</RouterLink>
     </ul>
 
-    <!-- Ссылки справа -->
+    
     <ul class="links right-links" :class="{ open: menuOpen }">
   
   <li>
-    <RouterLink to="/karzine">
+    <RouterLink to="{ name: 'karzine' }">
       <img class="log-lav lav" src="../img/kar23.png" alt="Корзина" />
     </RouterLink>
   </li>
   <li>
-    <RouterLink to="/love">
+    <RouterLink to="{ name: 'love' }">
       <img class="log-kar kar " src="../img/like.png" alt="Корзина" />
     </RouterLink>
   </li>
-  <li @click="isAuthenticated ? router.push('/cabinet') : showAuth = true" style="cursor: pointer;">
+  <li @click="isAuthenticated ? router.push({ name: 'cabinet' }) : showAuth = true" style="cursor: pointer;">
     <img class="log-kab kab" src="../img/ak23.png" alt="Кабинет" />
   </li>
 </ul>
   </nav>
 
-  <!-- Модалка (показ при showAuth) -->
+  
   <Modal v-if="showAuth" @close="showAuth = false" @success="handleSuccess" />
 </template>
 
@@ -98,10 +100,10 @@ function toggleMenu() {
 
 <style scoped>
 .underline-one {
-	color: #00bfff; /* Цвет обычной ссылки */
+	color: #00bfff; 
     position: relative;
     cursor: pointer;
-    text-decoration: none; /* Убираем подчеркивание */
+    text-decoration: none; 
 }
 .underline-one:after {
 	content: "";
@@ -110,9 +112,9 @@ function toggleMenu() {
     right: 0;
     bottom: -3px;
     width: 0;
-    height: 2px; /* Высота линии */
-    background-color: black; /* Цвет подчеркивания при исчезании линии*/
-    transition: width 0.5s; /* Время эффекта */
+    height: 2px; 
+    background-color: black; 
+    transition: width 0.5s;
 }
 
 .underline-one:hover:after {
@@ -122,26 +124,26 @@ function toggleMenu() {
     position: absolute;
     left: 0;
     bottom: -3px;
-    height: 2px; /* Высота линии */
-    background-color: rgb(53, 168, 31); /* Цвет подчеркивания при появлении линии*/
-    transition: width 0.5s;  /* Время эффекта */
+    height: 2px; 
+    background-color: rgb(53, 168, 31); 
+    transition: width 0.5s;  
 }
      
 .category-bar {
-  background-color: #05386B; /* Можно выбрать любой цвет */
+  background-color: #05386B; 
   display: flex;
   justify-content: center;
   gap: 2rem;
   padding: 0.7rem 0;
   font-family: H;
-  box-shadow: 0 2px 8px rgba(0, 31, 39, 0.7); /* вот это добавляет тень */
+  box-shadow: 0 2px 8px rgba(0, 31, 39, 0.7);
   
 }
 .category-img {
   transition: 0.3s ease-in-out;
 }
 
-/* Меняем картинку при наведении! */
+
 
 
 
@@ -190,7 +192,7 @@ function toggleMenu() {
   margin-left: 159px;
 }
 .log{
-  /* margin-top: 100px; */
+  
   width: 150px;
   transition: opacity 0.3s ease-in-out;
 }
@@ -201,7 +203,7 @@ function toggleMenu() {
 .schapka{
   flex: 1;
   display: flex;
-  justify-content: center; /* Центрируем */
+  justify-content: center; 
 
 }
 @font-face {
@@ -213,7 +215,6 @@ function toggleMenu() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-image: url("../img/tw.svg"); */
   background-color: #2c5140;
   padding: 0 2rem;
   height: 100px;
@@ -236,7 +237,7 @@ function toggleMenu() {
   transform: translateX(-50%);
 }
 .right-links {
-  /* margin-top: 100px; */
+ 
   color: #cccccc;
   display: flex;
   gap: 1.5rem;
